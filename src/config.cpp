@@ -3,6 +3,7 @@
 #include <fstream>
 
 static constexpr int pvmapper_default_listen_port = 5053;
+static constexpr int ca_default_search_port = 5064;
 
 static std::string strip(const std::string& str)
 {
@@ -126,7 +127,10 @@ void Config::parseFile(const std::string& path)
 
         } else if (std::regex_match(line, tokens, reCaSearchAddr)) {
             auto addr = tokens[1].str();
-            auto port = std::atol(tokens[4].str().c_str());
+            auto port = ca_default_search_port;
+            if (tokens[4].matched) {
+                port = std::atol(tokens[4].str().c_str());
+            }
             if (port > 0 && port < 65535) {
                 ca_search_addresses.emplace_back(addr, port);
             }
