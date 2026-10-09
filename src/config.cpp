@@ -2,6 +2,8 @@
 
 #include <fstream>
 
+static constexpr int pvmapper_default_listen_port = 5053;
+
 static std::string strip(const std::string& str)
 {
     size_t first = str.find_first_not_of(" \t\n\r\f\v");
@@ -133,6 +135,6 @@ void Config::parseFile(const std::string& path)
     }
 
     if (ca_listen_addresses.empty()) {
-        ca_listen_addresses.emplace_back("0.0.0.0", 5053);
+        ca_listen_addresses.emplace_back("0.0.0.0", pvmapper_default_listen_port);
     }
 }
