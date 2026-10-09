@@ -117,16 +117,16 @@ void Config::parseFile(const std::string& path)
 
         } else if (std::regex_match(line, tokens, reCaListenAddr)) {
             auto addr = tokens[1].str();
-            auto tmp = std::atol(tokens[4].str().c_str());
-            if (tmp > 0 && tmp < 65535) {
-                ca_listen_addresses.emplace_back(addr, tmp);
+            auto port = std::atol(tokens[4].str().c_str());
+            if (port > 0 && port < 65535) {
+                ca_listen_addresses.emplace_back(addr, port);
             }
 
         } else if (std::regex_match(line, tokens, reCaSearchAddr)) {
             auto addr = tokens[1].str();
-            auto tmp = std::atol(tokens[4].str().c_str());
-            if (tmp > 0 && tmp < 65535) {
-                ca_search_addresses.emplace_back(addr, tmp);
+            auto port = std::atol(tokens[4].str().c_str());
+            if (port > 0 && port < 65535) {
+                ca_search_addresses.emplace_back(addr, port);
             }
 
         }
